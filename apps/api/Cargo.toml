@@ -4,3 +4,11 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
+axum.workspace = true
+sqlx.workspace = true
+tokio.workspace = true
+serde.workspace = true
+
+service = { path = "../../crates/service" }
+database = { path = "../../crates/database"}
+models = { path = "../../crates/models"}

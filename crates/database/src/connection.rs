@@ -1,13 +1,12 @@
-use sqlx::postgres::PgPoolOptions;
-use serde::Deserialize;
+use sqlx::{PgPool, postgres::PgPoolOptions};
+use serde::{Deserialize};
 
 #[derive(Debug, Deserialize)]
 struct Config {
     database_url: String
 }
 
-#[tokio::main]
-pub async fn connection() -> Result<(), sqlx::Error> {
+pub async fn connection() -> anyhow::Result<PgPool> {
     dotenvy::dotenv().ok();
 
     let config = envy::from_env::<Config>();
@@ -19,5 +18,5 @@ pub async fn connection() -> Result<(), sqlx::Error> {
 
     println!("Connected");
 
-    Ok(())
+    Ok(pool)
 }
