@@ -14,9 +14,10 @@ members = [
 [workspace.dependencies]
 axum = { version = "0.8.9", features = ["macros"]}
 tokio = { version = "1.53.0", features = ["full"] }
-sqlx =  { version = "0.9", features = ["runtime-tokio", "postgres", "macros"]}
+sqlx =  { version = "0.9", features = ["runtime-tokio", "postgres", "macros", "uuid"]}
 envy = "0.4.2"
 serde = { version = "1.0.229", features = [ "derive" ]}
 dotenvy = "0.15.7"
 bcrypt = "0.19.3"
 anyhow = "1"
+uuid = { version = "1.24.0", features = ["serde", "v4"] }

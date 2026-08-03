@@ -6,5 +6,6 @@ edition = "2024"
 [dependencies]
 sqlx.workspace = true
 bcrypt.workspace = true
+uuid.workspace = true
 
 models = { path = "../models" }

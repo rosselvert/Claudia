@@ -3,8 +3,8 @@ pub mod handlers;
 pub mod dto;
 
 use axum::Router;
-use std::{net::TcpListener, sync::Arc};
-use database::connection::{self, connection};
+use std::{sync::Arc};
+use database::connection::{connection};
 
 #[derive(Clone)]
 pub struct AppState {
@@ -17,7 +17,7 @@ async fn main() {
     let shared_state = Arc::new(AppState {db: pool});
 
     let app = Router::new()
-        .nest("api/v1", routes::auth_routes::router())
+        .nest("/api/v1", routes::auth_routes::router())
         .with_state(shared_state);
 
     let listener = tokio::net::TcpListener::bind("127.0.0.1:5000").await.unwrap();

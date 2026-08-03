@@ -1,0 +1,6 @@
+$kind: collection
+name: Claudia API
+description: API collection for the Claudia project — a Rust/Axum backend running on http://127.0.0.1:5000
+variables:
+  - key: baseUrl
+    value: 'http://127.0.0.1:5000'
