@@ -1,11 +1,11 @@
+use serde::Deserialize;
 use sqlx::FromRow;
-use serde::{Serialize, Deserialize};
 use uuid::Uuid;
 
-#[derive(FromRow, Debug, Serialize, Deserialize)]
+#[derive(FromRow, Debug, Deserialize)]
 pub struct User {
-    pub id:  Uuid,
+    pub id: Uuid,
     pub full_name: String,
     pub email: String,
-    pub password: String
+    pub password: String,
 }

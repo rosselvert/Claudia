@@ -1,0 +1,32 @@
+@import "tailwindcss";
+
+@theme {
+  --color-ink: #20211d;
+  --color-paper: #f4f1e9;
+  --color-cream: #e9e2d4;
+  --color-sage: #7d856d;
+  --color-rust: #a55234;
+  --font-sans: "DM Sans", sans-serif;
+  --font-serif: "Newsreader", serif;
+}
+
+@layer base {
+  html { scroll-behavior: smooth; }
+  body { @apply m-0 bg-paper text-ink font-sans antialiased; }
+  button, a { -webkit-tap-highlight-color: transparent; }
+  button { @apply cursor-pointer; }
+  button:disabled { @apply cursor-not-allowed opacity-50; }
+  ::selection { @apply bg-rust text-white; }
+}
+
+@layer components {
+  .eyebrow { @apply text-[10px] font-semibold uppercase tracking-[.2em] text-rust; }
+  .serif-title { @apply font-serif font-normal leading-[.94] tracking-[-.04em]; }
+  .button-dark { @apply inline-flex items-center justify-center gap-2 bg-ink px-5 py-4 text-[10px] font-semibold uppercase tracking-[.16em] text-white transition hover:bg-rust disabled:hover:bg-ink; }
+  .field { @apply w-full border border-ink/20 bg-white/35 px-3 py-3 text-sm outline-none transition focus:border-ink; }
+  .panel { @apply bg-[#faf7ef] p-5 md:p-7; }
+  .icon-button { @apply grid size-10 place-items-center rounded-full transition hover:bg-ink/10; }
+}
+
+@keyframes enter { from { opacity: 0; transform: translateY(12px); } }
+.animate-enter { animation: enter .5s ease both; }

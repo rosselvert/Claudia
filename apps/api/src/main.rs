@@ -1,28 +1,39 @@
-pub mod routes;
+pub mod auth;
+pub mod error;
 pub mod handlers;
-pub mod dto;
+pub mod routes;
 
 use axum::Router;
-use std::{sync::Arc};
-use database::connection::{connection};
+use database::connection::connection;
+use std::{env, sync::Arc};
+use tower_http::services::{ServeDir, ServeFile};
 
 #[derive(Clone)]
 pub struct AppState {
-    pub db: sqlx::PgPool
+    pub db: sqlx::PgPool,
 }
+
 #[tokio::main]
-async fn main() {
-    let pool = connection().await.expect("Unable to initiate DB Pool");
+async fn main() -> anyhow::Result<()> {
+    let pool = connection().await?;
+    sqlx::migrate!("../../migrations").run(&pool).await?;
 
-    let shared_state = Arc::new(AppState {db: pool});
+    let shared_state = Arc::new(AppState { db: pool });
 
+    let frontend_dir = env::var("FRONTEND_DIR").unwrap_or_else(|_| "apps/web/dist".to_owned());
+    let index_file = format!("{frontend_dir}/index.html");
     let app = Router::new()
-        .nest("/api/v1", routes::auth_routes::router())
+        .nest("/api/v1", routes::store_routes::router())
+        .fallback_service(ServeDir::new(frontend_dir).fallback(ServeFile::new(index_file)))
         .with_state(shared_state);
 
-    let listener = tokio::net::TcpListener::bind("127.0.0.1:5000").await.unwrap();
+    let host = env::var("HOST").unwrap_or_else(|_| "127.0.0.1".to_owned());
+    let port = env::var("PORT").unwrap_or_else(|_| "5001".to_owned());
+    let address = format!("{host}:{port}");
+    let listener = tokio::net::TcpListener::bind(&address).await?;
 
-    println!("Server running on http//127.0.0.1:5000");
+    println!("Claudia API running on http://{address}");
 
-    axum::serve(listener, app).await.unwrap();
+    axum::serve(listener, app).await?;
+    Ok(())
 }
