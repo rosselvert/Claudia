@@ -1,3 +1,6 @@
+<img width="1710" height="979" alt="Screenshot 2026-08-12 at 06 01 14" src="https://github.com/user-attachments/assets/740f854a-6a30-4426-ad3d-262882ef9362" />
+
+
 # Claudia Commerce API
 
 Claudia is a small, production-minded ecommerce application built with Rust,
