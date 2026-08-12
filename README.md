@@ -1,6 +1,6 @@
 <img width="1710" height="979" alt="Claudia ecommerce storefront" src="https://github.com/user-attachments/assets/740f854a-6a30-4426-ad3d-262882ef9362" />
 
-# Claudia Commerce
+# Claudia - E-Commerce Platform
 
 Claudia is a full-stack ecommerce application with a Rust backend and React
 frontend. It includes a storefront, customer accounts, wishlists, an address
